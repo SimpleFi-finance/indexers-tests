@@ -1,14 +1,14 @@
 # Subgraph Test
 
-Task of the test is to implement a subgraph for Uniswap V2 protocol with given GraphQL schema. We have a schema.graphql in this repo with entity definitions. You need to implement subgraph menifest and mappings code to index these entities.
+Task of the test is to implement a subgraph for Uniswap V2 protocol with given GraphQL schema. We have a schema.graphql in this repo with entity definitions. You need to implement subgraph manifest and mappings code to index these entities.
 
 ## Description of entities in schema
 
-Purpose of this subgraph is to index liquidity positions of users in Uniswap V2 pair contracts. We also want to track changes in balance of LP token and reserve tokens for a positions along with return on investment for every position.
+Purpose of this subgraph is to index liquidity positions of users in Uniswap V2 pair contracts. We also want to track changes in balance of LP token and reserve tokens for a position along with return on investment for every position.
 
 ### Account
 
-This entity is used to store all ethereum addresses as accounts. Bonus points if you can figure out a way to detect if an address is EOA or a smart contract address. Please keep account type detection implementation at low priority. You can submit solution with a stub method which return "EOA" for every address.
+This entity is used to store all ethereum addresses as accounts. Bonus points if you can figure out a way to detect if an address is EOA or a smart contract address. Please keep account type detection implementation at low priority. You can submit the solution with a stub method which return "EOA" for every address.
 
 ### Token
 
