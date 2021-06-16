@@ -40,6 +40,8 @@ enum TransactionType {
   REDEEM
   BORROW
   REPAY
+  TRANSFER_IN
+  TRANSFER_OUT
 }
 
 type Account @entity {
@@ -59,7 +61,7 @@ type Token @entity {
 }
 
 type Market @entity {
-  id: ID! # {protocol pair/pool/vault address}
+  id: ID! # {protocol pool/pool/vault address}
   account: Account!
   protocolName: ProtocolName!
   protocolType: ProtocolType!
@@ -76,7 +78,8 @@ type Market @entity {
 }
 
 type Transaction @entity {
-  id: ID! # {transactionHash}
+  id: ID! # {account}{transactionHash}{logIndex}
+  transactionHash: Bytes!
   market: Market!
   # A transaction.from is always transaction origin because outside EVM transaction.origin and msg.sender are same
   from: Account!
@@ -86,6 +89,8 @@ type Transaction @entity {
   inputTokenAmounts: [String!]!
   outputTokenAmount: BigInt!
   rewardTokenAmounts: [String!]!
+  transferredFrom: String
+  transferredTo: String
   gasUsed: BigInt!
   gasPrice: BigInt!
   blockNumber: BigInt!
@@ -107,6 +112,9 @@ type AccountPosition @entity {
   positions: [Position!]! @derivedFrom(field: "accountPosition")
 }
 
+# We can not keep balances and roi updated all the time. 
+# We can update these only when the account of the position makes some changes in the position
+# at others time when market variables are changing because of other's actions then we won't update these
 type Position @entity {
   id: ID! # {accountPositionId}{autoIncrement}
   accountPosition: AccountPosition!
