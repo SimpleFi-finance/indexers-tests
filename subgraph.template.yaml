@@ -1,0 +1,83 @@
+specVersion: 0.0.2
+description: Test
+repository: https://github.com/SimpleFi-finance/indexers-tests
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: UniswapV2Factory
+    network: {{network}}
+    source:
+      address: {{uniswapFactory}}
+      abi: UniswapV2Factory
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/uniswap.ts
+      entities:
+        - Account
+        - Token
+        - Market
+        - MarketSnapshot
+        - Transaction
+        - AccountPosition
+        - Position
+        - PositionSnapshot
+        - Pair
+        - PairSnapshot
+        - Mint
+        - Burn
+      abis:
+        - name: UniswapV2Factory
+          file: ./abis/UniswapV2Factory.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handleNewPair
+templates:
+  - kind: ethereum/contract
+    name: UniswapV2Pair
+    network: rinkeby
+    source:
+      abi: UniswapV2Pair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/uniswap.ts
+      entities:
+        - Account
+        - Token
+        - Market
+        - MarketSnapshot
+        - Transaction
+        - AccountPosition
+        - Position
+        - PositionSnapshot
+        - Pair
+        - PairSnapshot
+        - Mint
+        - Burn
+      abis:
+        - name: UniswapV2Pair
+          file: ./abis/UniswapV2Pair.json
+        - name: UniswapV2Factory
+          file: ./abis/UniswapV2Factory.json
+      eventHandlers:
+        - event: Mint(indexed address,uint256,uint256)
+          handler: handleMint
+        - event: Burn(indexed address,uint256,uint256,indexed address)
+          handler: handleBurn
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleSwap
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Sync(uint112,uint112)
+          handler: handleSync
