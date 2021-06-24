@@ -8,7 +8,7 @@ dataSources:
     name: UniswapV2Factory
     network: {{network}}
     source:
-      address: {{uniswapFactory}}
+      address: '{{uniswapFactory}}'
       abi: UniswapV2Factory
       startBlock: {{startBlock}}
     mapping:
@@ -40,11 +40,11 @@ dataSources:
           file: ./abis/ERC20NameBytes.json
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,address,uint256)
-          handler: handleNewPair
+          handler: handlePairCreated
 templates:
   - kind: ethereum/contract
     name: UniswapV2Pair
-    network: rinkeby
+    network: mainnet
     source:
       abi: UniswapV2Pair
     mapping:

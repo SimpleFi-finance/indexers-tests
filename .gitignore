@@ -78,3 +78,4 @@ subgraph.yaml
 typechain
 artifacts
 cache
+data

@@ -10,6 +10,7 @@
     "prepare:local": "mustache config/50.json subgraph.template.yaml > subgraph.yaml",
     "create": "graph create sondotpin/test-subgraph --node https://api.thegraph.com/deploy/",
     "create-local": "graph create sondotpin/test-subgraph --node http://127.0.0.1:8020",
+    "remove-local": "graph remove sondotpin/test-subgraph --node http://127.0.0.1:8020",
     "test": "jest",
     "codegen": "graph codegen --output-dir types",
     "build": "graph build",
