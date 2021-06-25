@@ -1,0 +1,62 @@
+{
+  "name": "test-subgraph",
+  "version": "1.0.0",
+  "scripts": {
+    "chain": "ganache-cli --networkId 50 --accounts 20 -e 10000000000 -l 10000000 -m 'concert load couple harbor equip island argue ramp clarify fence smart topic'",
+    "seed-graph": "ts-node scripts/seed",
+    "deploy-contracts": "ts-node scripts/deploy.ts",
+    "prepare:mainnet": "mustache config/1.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:rinkeby": "mustache config/4.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:local": "mustache config/50.json subgraph.template.yaml > subgraph.yaml",
+    "create": "graph create sondotpin/test-subgraph --node https://api.thegraph.com/deploy/",
+    "create-local": "graph create sondotpin/test-subgraph --node http://127.0.0.1:8020",
+    "remove-local": "graph remove sondotpin/test-subgraph --node http://127.0.0.1:8020",
+    "test": "jest",
+    "codegen": "graph codegen --output-dir types",
+    "build": "graph build",
+    "deploy": "graph deploy sondotpin/test-subgraph --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "deploy-local": "graph deploy sondotpin/test-subgraph --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
+    "typechain": "rm -rf ./typechain && typechain --show-stack-traces --target ethers-v5 --outDir ./typechain 'artifacts/!(build-info)/**/!(*.dbg*)*.json'",
+    "build:contracts": "yarn compile && yarn typechain",
+    "compile": "hardhat clean && hardhat compile"
+  },
+  "devDependencies": {
+    "@ethersproject/providers": "^5.0.16",
+    "@fleekhq/fleek-storage-js": "^1.0.9",
+    "@graphprotocol/graph-cli": "^0.18.0",
+    "@graphprotocol/graph-ts": "^0.18.0",
+    "@nomiclabs/buidler": "1.4.8",
+    "@nomiclabs/buidler-ethers": "1.3.4",
+    "@nomiclabs/buidler-waffle": "1.3.5",
+    "@nomiclabs/hardhat-ethers": "2.0.0",
+    "@nomiclabs/hardhat-waffle": "2.0.0",
+    "@typechain/ethers-v5": "2.0.0",
+    "@types/jest": "^26.0.15",
+    "@types/sjcl": "^1.0.29",
+    "axios": "^0.21.0",
+    "axios-retry": "^3.1.9",
+    "buidler-typechain": "0.2.2",
+    "dotenv": "^8.2.0",
+    "ethers": "^5.0",
+    "ganache-cli": "^6.12.2",
+    "graphql-request": "^3.3.0",
+    "hardhat-deploy": "0.7.0-beta.25",
+    "hardhat-typechain": "0.3.3",
+    "jest": "^26.6.3",
+    "jest-serial-runner": "^1.1.0",
+    "mustache": "^4.1.0",
+    "random-words": "^1.1.1",
+    "sjcl": "^1.0.8",
+    "system-commands": "^1.1.7",
+    "ts-jest": "^26.4.4",
+    "typechain-target-ethers": "1.0.4",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "hardhat": "2.0.2",
+    "typechain": "3.0.0"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  }
+}
