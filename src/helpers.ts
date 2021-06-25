@@ -127,7 +127,17 @@ export function fetchCurrencySymbol(currencyAddress: Address): string {
     symbolValue = symbolResult.value;
   }
 
-  return symbolValue;
+  return symbolValue as string;
+}
+
+export function fetchTokenTotalSupply(tokenAddress: Address): BigInt {
+  let contract = ERC20.bind(tokenAddress)
+  let totalSupplyValue = ZERO_BI;
+  let totalSupplyResult = contract.try_totalSupply()
+  if (!totalSupplyResult.reverted) {
+    totalSupplyValue = totalSupplyResult.value;
+  }
+  return totalSupplyValue as BigInt;
 }
 
 /**
@@ -208,3 +218,4 @@ export function createPair(
 function isNullEthValue(value: string): boolean {
   return value == '0x0000000000000000000000000000000000000000000000000000000000000001';
 }
+
