@@ -1,0 +1,27 @@
+{
+  "name": "simplefi-indexers",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ giovannidisiena/simplefi-indexers",
+    "create-local": "graph create --node http://localhost:8020/ giovannidisiena/simplefi-indexers",
+    "remove-local": "graph remove --node http://localhost:8020/ giovannidisiena/simplefi-indexers",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 giovannidisiena/simplefi-indexers"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "0.20.1",
+    "@graphprotocol/graph-ts": "^0.20.0",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^1.19.1",
+    "typescript": "^4.3.4"
+  },
+  "dependencies": {
+    "async-retry": "^1.3.1",
+    "graphql-request": "^3.4.0"
+  }
+}
